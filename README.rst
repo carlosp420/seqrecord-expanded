@@ -14,11 +14,35 @@ seqs, codon positions based on reading frames, etc.
 
 Usage
 -----
+By default it assumes a DNA sequence with ambiguous characters.
+
 .. code:: python
 
     >>> from seqrecord_expanded import SeqRecordExpanded
-    >>> seq
-
+    >>> seq_record = SeqRecordExpanded('ATGCTARCRATARAAC',
+    ...                                voucher_code='CP100-09',
+    ...                                taxonomy={'genus': 'Melitaea',
+    ...                                          'species': 'phoebe',
+    ...                                         },
+    ...                                gene_code='EF1a',
+    ...                                reading_frame=2,
+    ...                                translation_table=1,
+    ...                                )
+    >>> # Degenerate sequence
+    >>> seq_record.degenerate('S')
+    ... PLRDOI
+    >>>
+    >>> # get first codon positions
+    >>> seq_record.first_codon_position()
+    ... TTCTA
+    >>>
+    >>> # get first and second positions
+    >>> seq_record.first_and_second_positions()
+    ... TGTACRTAAA
+    >>>
+    >>> # translate
+    >>> seq_record.translate()
+    ... OKPDOR
 
 Installation
 ------------
