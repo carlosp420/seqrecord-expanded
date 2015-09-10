@@ -47,14 +47,25 @@ By default it assumes a DNA sequence with ambiguous characters.
 Installation
 ------------
 
+.. code-block:: shell
+
+    pip install seqrecord-expanded
+
 Requirements
 ^^^^^^^^^^^^
+BioPython:
+
+.. code-block:: shell
+
+    pip install -r requirements.txt
+
 
 Compatibility
 -------------
 
 Licence
 -------
+BSD.
 
 Authors
 -------
