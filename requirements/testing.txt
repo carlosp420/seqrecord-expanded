@@ -1,5 +1,7 @@
 -r base.txt
 
+radon
 nose
 coverage
 coveralls
+pep8
