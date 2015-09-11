@@ -3,7 +3,7 @@ import unittest
 from seqrecord_expanded import SeqRecordExpanded
 
 
-class TestSeqRecordExpanded(unittest.TestCase):
+class TestCodonPositions(unittest.TestCase):
     def setUp(self):
         self.seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGACATTTGATTTACAAATGTGGTGGTATCGACAAGCGT'
         self.gene_code = 'EF1a'
@@ -12,20 +12,13 @@ class TestSeqRecordExpanded(unittest.TestCase):
         self.voucher_code = 'CP100-09'
         self.taxonomy = {'genus': 'Aus', 'species': 'bus'}
 
-    def test_getting_fist_codon_position(self):
+    def test_getting_codon_positions(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=self.reading_frame)
-        result = seq_record.fist_codon_position()
         expected = 'CGGTGATAAAGCTATATGGAGAC'
-        self.assertEqual(expected, result)
+        self.assertEqual(expected, seq_record.fist_codon_position(), 'Fist codon position')
 
-    def test_getting_second_codon_position(self):
-        seq_record = SeqRecordExpanded(self.seq, reading_frame=self.reading_frame)
-        result = seq_record.second_codon_position()
         expected = 'ATACGACCCCGATTAAGGGTAAG'
-        self.assertEqual(expected, result)
+        self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
 
-    def test_getting_third_codon_position(self):
-        seq_record = SeqRecordExpanded(self.seq, reading_frame=self.reading_frame)
-        result = seq_record.third_codon_position()
         expected = 'ACCCCCGCTCAATGTCATTTCCGT'
-        self.assertEqual(expected, result)
+        self.assertEqual(expected, seq_record.third_codon_position(), 'Third codon position')
