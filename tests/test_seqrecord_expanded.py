@@ -23,3 +23,9 @@ class TestSeqRecordExpanded(unittest.TestCase):
         result = seq_record.second_codon_position()
         expected = 'ATACGACCCCGATTAAGGGTAAG'
         self.assertEqual(expected, result)
+
+    def test_getting_third_codon_position(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=self.reading_frame)
+        result = seq_record.third_codon_position()
+        expected = 'ACCCCCGCTCAATGTCATTTCCGT'
+        self.assertEqual(expected, result)
