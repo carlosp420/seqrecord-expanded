@@ -37,19 +37,19 @@ By default it assumes a DNA sequence with ambiguous characters.
     ...                                )
     >>> # Degenerate sequence
     >>> seq_record.degenerate('S')
-    ... PLRDOI
+    PLRDOI
     >>>
     >>> # get first codon positions
     >>> seq_record.first_codon_position()
-    ... TTCTA
+    TTCTA
     >>>
     >>> # get first and second positions
     >>> seq_record.first_and_second_positions()
-    ... TGTACRTAAA
+    TGTACRTAAA
     >>>
     >>> # translate
     >>> seq_record.translate()
-    ... OKPDOR
+    OKPDOR
 
 Installation
 ------------
@@ -60,7 +60,7 @@ Installation
 
 Requirements
 ^^^^^^^^^^^^
-BioPython:
+Python3.
 
 .. code-block:: shell
 
