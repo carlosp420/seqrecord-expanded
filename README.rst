@@ -1,13 +1,16 @@
-seqrecord-expanded
-==================
-
 .. image:: https://pypip.in/v/seqrecord-expanded/badge.png
-    :target: https://pypi.python.org/pypi/seqrecord-expanded
-    :alt: Latest PyPI version
+   :target: https://pypi.python.org/pypi/seqrecord-expanded
+   :alt: Latest PyPI version
 
 .. image:: https://travis-ci.org/carlosp420/seqrecord-expanded.png
    :target: https://travis-ci.org/carlosp420/seqrecord-expanded
    :alt: Latest Travis CI build status
+
+.. image:: https://coveralls.io/repos/carlosp420/seqrecord-expanded/badge.svg?branch=master&service=github
+   :target: https://coveralls.io/github/carlosp420/seqrecord-expanded?branch=master
+
+seqrecord-expanded
+==================
 
 BioPython's SeqRecord class, but expanded with additional methods: degenerate
 seqs, codon positions based on reading frames, etc.
