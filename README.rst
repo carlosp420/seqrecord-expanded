@@ -26,7 +26,7 @@ By default it assumes a DNA sequence with ambiguous characters.
     ...                                         },
     ...                                gene_code='EF1a',
     ...                                reading_frame=2,
-    ...                                translation_table=1,
+    ...                                table=1,  # translation table
     ...                                )
     >>> # Degenerate sequence
     >>> seq_record.degenerate('S')
