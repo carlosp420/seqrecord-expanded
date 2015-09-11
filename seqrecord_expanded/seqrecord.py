@@ -85,6 +85,4 @@ class SeqRecordExpanded(SeqRecord):
         """
         :return: string containing both positions of each codon.
         """
-        fist_codon_pos = self.fist_codon_position()
-        second_codon_post = self.second_codon_position()
-        return chain_and_flatten(fist_codon_pos, second_codon_post)
+        return chain_and_flatten(self.fist_codon_position(), self.second_codon_position())
