@@ -69,3 +69,9 @@ class TestCodonPositions(unittest.TestCase):
 
         expected = 'TTGCATAT'
         self.assertEqual(expected, seq_record.third_codon_position(), 'Third codon position')
+
+    def test_getting_first_and_second_codon_positions_reading_frame_1(self):
+        seq = 'GAATGGAAGACAAAGTCTCGTCCA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=1)
+        expected = 'GATGAAACAATCCGCC'
+        self.assertEqual(expected, seq_record.fist_and_second_codon_positions())

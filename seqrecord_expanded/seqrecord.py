@@ -29,11 +29,7 @@ class SeqRecordExpanded(SeqRecord):
         """
         :return: string containing the first positions of each codon.
         """
-        if not self.reading_frame:
-            raise AttributeError("The reading_frame attribute is not set.")
-
-        if self.reading_frame not in [1, 2, 3]:
-            raise ValueError("The reading_frame attribute should be either 1, 2 or 3.")
+        self.check_reading_frame()
 
         seq = str(self.seq)
         if self.reading_frame == 1:
@@ -44,15 +40,17 @@ class SeqRecordExpanded(SeqRecord):
             first_position = seq[2::3]
         return first_position
 
+    def check_reading_frame(self):
+        if not self.reading_frame:
+            raise AttributeError("The reading_frame attribute is not set.")
+        if self.reading_frame not in [1, 2, 3]:
+            raise ValueError("The reading_frame attribute should be either 1, 2 or 3.")
+
     def second_codon_position(self):
         """
         :return: string containing the second positions of each codon.
         """
-        if not self.reading_frame:
-            raise AttributeError("The reading_frame attribute is not set.")
-
-        if self.reading_frame not in [1, 2, 3]:
-            raise ValueError("The reading_frame attribute should be either 1, 2 or 3.")
+        self.check_reading_frame()
 
         seq = str(self.seq)
         if self.reading_frame == 1:
@@ -67,11 +65,7 @@ class SeqRecordExpanded(SeqRecord):
         """
         :return: string containing the third positions of each codon.
         """
-        if not self.reading_frame:
-            raise AttributeError("The reading_frame attribute is not set.")
-
-        if self.reading_frame not in [1, 2, 3]:
-            raise ValueError("The reading_frame attribute should be either 1, 2 or 3.")
+        self.check_reading_frame()
 
         seq = str(self.seq)
         if self.reading_frame == 1:
@@ -81,3 +75,9 @@ class SeqRecordExpanded(SeqRecord):
         else:  # self.reading_frame == 3
             third_position = seq[1::3]
         return third_position
+
+    def first_and_second_codon_positions(self):
+        """
+        :return: string containing both positions of each codon.
+        """
+        pass
