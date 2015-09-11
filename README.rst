@@ -32,11 +32,23 @@ By default it assumes a DNA sequence with ambiguous characters.
     ...                                          'species': 'phoebe',
     ...                                         },
     ...                                gene_code='EF1a',
-    ...                                reading_frame=2,
+    ...                                reading_frame=1,
     ...                                table=1,  # translation table
     ...                                )
-    >>> # Degenerate sequence
-    >>> seq_record.degenerate('S')
+    >>> # Degenerate sequence standard genetic code
+    >>> seq_record.degenerate()
+    PLRDOI
+    >>>
+    >>> # Degenerate sequence S method
+    >>> seq_record.degenerate(method='S')
+    PLRDOI
+    >>>
+    >>> # Degenerate sequence Z method
+    >>> seq_record.degenerate(method='Z')
+    PLRDOI
+    >>>
+    >>> # Degenerate sequence SZ method
+    >>> seq_record.degenerate(method='SZ')
     PLRDOI
     >>>
     >>> # get first codon positions

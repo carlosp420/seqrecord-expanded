@@ -1,1 +1,2 @@
 biopython==1.65
+degenerate-dna==0.0.6

@@ -1,5 +1,7 @@
 import unittest
 
+from degenerate_dna import exceptions
+
 from seqrecord_expanded import SeqRecordExpanded
 
 
@@ -75,3 +77,39 @@ class TestCodonPositions(unittest.TestCase):
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
         expected = 'GATGAAACAATCCGCC'
         self.assertEqual(expected, seq_record.first_and_second_codon_positions())
+
+
+class TestDegenerate(unittest.TestCase):
+    def setUp(self):
+        self.table = 1  # translation table
+        self.voucher_code = 'CP100-09'
+        self.taxonomy = {'genus': 'Aus', 'species': 'bus'}
+        self.seq = 'TCTGAATGGAAGACAAAGCGTCCA'
+
+    def test_degen_no_reading_frame(self):
+        seq_record = SeqRecordExpanded(self.seq)
+        self.assertRaises(AttributeError, seq_record.degenerate, 'Missing reading_frame.')
+
+    def test_degen_missing_table_and_method(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        self.assertRaises(exceptions.WrongParameterError, seq_record.degenerate, 'Missing reading_frame.')
+
+    def test_degen_standard(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1, table=1)
+        expected = 'TCNGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate())
+
+    def test_degen_s(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        expected = 'AGYGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate(method='S'))
+
+    def test_degen_z(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        expected = 'TCNGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate(method='Z'))
+
+    def test_degen_sz(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        expected = 'NNNGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate(method='SZ'))

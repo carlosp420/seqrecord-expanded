@@ -2,6 +2,8 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 
+from degenerate_dna import Degenera
+
 from .utils import chain_and_flatten
 
 
@@ -15,17 +17,17 @@ class SeqRecordExpanded(SeqRecord):
         - taxonomy           - dictionary {'genus': 'Aus', 'species': 'bus'}.
         - gene_code          - gene code.
         - reading_frame      - integer. 1, 2 or 3.
-        - translation_table  - integer. NCBI code for translation table.
+        - table  - integer. NCBI code for translation table.
     """
     def __init__(self, *args, voucher_code=None, taxonomy=None, gene_code=None,
-                 reading_frame=None, translation_table=None, **kwargs):
+                 reading_frame=None, table=None, **kwargs):
         super(SeqRecordExpanded, self).__init__(*args, **kwargs)
         self._seq = Seq(args[0], alphabet=IUPAC.ambiguous_dna)
         self.voucher_code = voucher_code
         self.taxonomy = taxonomy
         self.gene_code = gene_code
         self.reading_frame = reading_frame
-        self.translation_table = translation_table
+        self.table = table
 
     def fist_codon_position(self):
         """
@@ -86,3 +88,13 @@ class SeqRecordExpanded(SeqRecord):
         :return: string containing both positions of each codon.
         """
         return chain_and_flatten(self.fist_codon_position(), self.second_codon_position())
+
+    def degenerate(self, method=None):
+        self.check_reading_frame()
+
+        if not method:
+            res = Degenera(dna=self.seq, table=self.table, method='normal')
+        else:
+            res = Degenera(dna=self.seq, table=1, method=method)
+        res.degenerate()
+        return res.degenerated
