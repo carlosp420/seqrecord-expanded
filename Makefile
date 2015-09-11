@@ -5,11 +5,11 @@ clean-test:
 	rm -fr html/
 	rm -rf cover/
 
-test:
+test: clean-test
 	nosetests --verbosity=2 -w tests
 
-coverage: clean-test
-	coverage run --source=seqrecord_expanded
+coverage: test
+	coverage run --source=seqrecord_expanded setup.py test
 	coverage report -m
 	coverage html
 

@@ -13,7 +13,7 @@ class TestSeqRecordExpanded(unittest.TestCase):
         self.taxonomy = {'genus': 'Aus', 'species': 'bus'}
 
     def test_getting_fist_codon_position(self):
-        seq_record = SeqRecordExpanded(self.seq)
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=self.reading_frame)
         result = seq_record.fist_codon_position()
         expected = 'CGGTGATAAAGCTATATGGAGAC'
         self.assertEqual(expected, result)
