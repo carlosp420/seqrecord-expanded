@@ -9,6 +9,10 @@
 .. image:: https://coveralls.io/repos/carlosp420/seqrecord-expanded/badge.svg?branch=master&service=github
    :target: https://coveralls.io/github/carlosp420/seqrecord-expanded?branch=master
 
+.. image:: https://www.quantifiedcode.com/api/v1/project/b0bf8d6e31704c11abeb0b9043c11891/badge.svg
+   :target: https://www.quantifiedcode.com/app/project/b0bf8d6e31704c11abeb0b9043c11891
+   :alt: Code issues
+
 seqrecord-expanded
 ==================
 
