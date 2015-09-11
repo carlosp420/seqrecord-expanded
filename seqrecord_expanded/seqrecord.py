@@ -2,6 +2,8 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 
+from .utils import chain_and_flatten
+
 
 class SeqRecordExpanded(SeqRecord):
     """Creates an Expanded SeqRecord.
@@ -41,6 +43,9 @@ class SeqRecordExpanded(SeqRecord):
         return first_position
 
     def check_reading_frame(self):
+        """
+        Raises errors if reading frame is not integer and is not 1, 2 or 3.
+        """
         if not self.reading_frame:
             raise AttributeError("The reading_frame attribute is not set.")
         if self.reading_frame not in [1, 2, 3]:
@@ -80,4 +85,6 @@ class SeqRecordExpanded(SeqRecord):
         """
         :return: string containing both positions of each codon.
         """
-        pass
+        fist_codon_pos = self.fist_codon_position()
+        second_codon_post = self.second_codon_position()
+        return chain_and_flatten(fist_codon_pos, second_codon_post)

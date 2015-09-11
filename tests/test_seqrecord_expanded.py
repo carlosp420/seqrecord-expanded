@@ -74,4 +74,4 @@ class TestCodonPositions(unittest.TestCase):
         seq = 'GAATGGAAGACAAAGTCTCGTCCA'
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
         expected = 'GATGAAACAATCCGCC'
-        self.assertEqual(expected, seq_record.fist_and_second_codon_positions())
+        self.assertEqual(expected, seq_record.first_and_second_codon_positions())
