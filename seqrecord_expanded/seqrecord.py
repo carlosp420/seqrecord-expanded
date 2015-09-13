@@ -4,6 +4,7 @@ from Bio.Alphabet import IUPAC
 from degenerate_dna import Degenera
 
 from .utils import chain_and_flatten
+from .exceptions import MissingParameterError
 
 
 class SeqRecordExpanded(object):
@@ -32,7 +33,7 @@ class SeqRecordExpanded(object):
         """
         :return: string containing the first positions of each codon.
         """
-        self.check_reading_frame()
+        self._check_reading_frame()
 
         seq = str(self.seq)
         if self.reading_frame == 1:
@@ -43,7 +44,7 @@ class SeqRecordExpanded(object):
             first_position = seq[2::3]
         return first_position
 
-    def check_reading_frame(self):
+    def _check_reading_frame(self):
         """
         Raises errors if reading frame is not integer and is not 1, 2 or 3.
         """
@@ -56,7 +57,7 @@ class SeqRecordExpanded(object):
         """
         :return: string containing the second positions of each codon.
         """
-        self.check_reading_frame()
+        self._check_reading_frame()
 
         seq = str(self.seq)
         if self.reading_frame == 1:
@@ -71,7 +72,7 @@ class SeqRecordExpanded(object):
         """
         :return: string containing the third positions of each codon.
         """
-        self.check_reading_frame()
+        self._check_reading_frame()
 
         seq = str(self.seq)
         if self.reading_frame == 1:
@@ -89,8 +90,8 @@ class SeqRecordExpanded(object):
         return chain_and_flatten(self.first_codon_position(), self.second_codon_position())
 
     def degenerate(self, method=None):
-        self.check_reading_frame()
-        self.correct_seq_based_on_reading_frame()
+        self._check_reading_frame()
+        self._correct_seq_based_on_reading_frame()
 
         if not method:
             table = self.table
@@ -103,7 +104,7 @@ class SeqRecordExpanded(object):
         res.degenerate()
         return res.degenerated
 
-    def correct_seq_based_on_reading_frame(self):
+    def _correct_seq_based_on_reading_frame(self):
         """
         Trims leading end of `self.seq` if the reading frame does not start in 1st codon position
         of the sequence.
@@ -116,3 +117,23 @@ class SeqRecordExpanded(object):
 
             if self.reading_frame == 3:
                 self.seq = self.seq[2:]
+
+    def translate(self, table=None):
+        """
+        Uses BioPython translation method into Aminoacid sequence.
+        :param table: Optional. It can be specified when creating the class instance.
+        :return: str. Aminoacid sequence.
+        """
+        self._check_reading_frame()
+        self._check_translation_table(table)
+        self._correct_seq_based_on_reading_frame()
+
+        if not table:
+            return str(self.seq.translate(table=self.table))
+        else:
+            return str(self.seq.translate(table=table))
+
+    def _check_translation_table(self, table):
+        if self.table is None and table is None:
+            raise MissingParameterError('It is necessary to specify the translation table to use:'
+                                        ' seq_record.translate(table=1)')

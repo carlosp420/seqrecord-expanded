@@ -3,6 +3,7 @@ import unittest
 from degenerate_dna import exceptions
 
 from seqrecord_expanded import SeqRecordExpanded
+from seqrecord_expanded.exceptions import MissingParameterError
 
 
 class TestCodonPositions(unittest.TestCase):
@@ -125,3 +126,40 @@ class TestDegenerate(unittest.TestCase):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=3)
         expected = 'TGAATGGARGAYAARGCNNNNA'
         self.assertEqual(expected, seq_record.degenerate(method='SZ'), 'Using reading_frame=3')
+
+
+class TestTranslate(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_translate(self):
+        seq = 'TCTGAATGGAAGACAAAGCGTCCA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=1, table=1)
+        expected = 'SEWKTKRP'
+        self.assertEqual(expected, seq_record.translate(), 'Using reading_frame=1')
+
+        seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=2, table=1)
+        expected = 'HVDSGKSTTTG'
+        self.assertEqual(expected, seq_record.translate(), 'Using reading_frame=2')
+
+    def test_translate_no_table_at_creation_class_instance(self):
+        seq = 'TCTGAATGGAAGACAAAGCGTCCA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=1)
+        self.assertRaises(MissingParameterError, seq_record.translate)
+
+        seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=2)
+        self.assertRaises(MissingParameterError, seq_record.translate)
+
+    def test_translate_with_table_at_function_level(self):
+        seq = 'TCTGAATGGAAGACAAAGCGTCCA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=1)
+        expected = 'SEWKTKRP'
+        self.assertEqual(expected, seq_record.translate(table=1))
+
+        seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=2)
+        expected = 'HVDSGKSTTTG'
+        self.assertEqual(expected, seq_record.translate(table=1))
+
