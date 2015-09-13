@@ -29,7 +29,7 @@ class SeqRecordExpanded(SeqRecord):
         self.reading_frame = reading_frame
         self.table = table
 
-    def fist_codon_position(self):
+    def first_codon_position(self):
         """
         :return: string containing the first positions of each codon.
         """
@@ -87,7 +87,7 @@ class SeqRecordExpanded(SeqRecord):
         """
         :return: string containing both positions of each codon.
         """
-        return chain_and_flatten(self.fist_codon_position(), self.second_codon_position())
+        return chain_and_flatten(self.first_codon_position(), self.second_codon_position())
 
     def degenerate(self, method=None):
         self.check_reading_frame()

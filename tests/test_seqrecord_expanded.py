@@ -14,25 +14,25 @@ class TestCodonPositions(unittest.TestCase):
 
     def test_missing_reading_frame(self):
         seq_record = SeqRecordExpanded(self.seq)
-        self.assertRaises(AttributeError, seq_record.fist_codon_position)
+        self.assertRaises(AttributeError, seq_record.first_codon_position)
         self.assertRaises(AttributeError, seq_record.second_codon_position)
         self.assertRaises(AttributeError, seq_record.third_codon_position)
 
     def test_wrong_reading_frame_int(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=4)
-        self.assertRaises(ValueError, seq_record.fist_codon_position)
+        self.assertRaises(ValueError, seq_record.first_codon_position)
         self.assertRaises(ValueError, seq_record.second_codon_position)
         self.assertRaises(ValueError, seq_record.third_codon_position)
 
     def test_wrong_reading_frame_str(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame='1')
-        self.assertRaises(ValueError, seq_record.fist_codon_position)
+        self.assertRaises(ValueError, seq_record.first_codon_position)
         self.assertRaises(ValueError, seq_record.second_codon_position)
         self.assertRaises(ValueError, seq_record.third_codon_position)
 
     def test_wrong_reading_frame_empty(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame='')
-        self.assertRaises(AttributeError, seq_record.fist_codon_position)
+        self.assertRaises(AttributeError, seq_record.first_codon_position)
         self.assertRaises(AttributeError, seq_record.second_codon_position)
         self.assertRaises(AttributeError, seq_record.third_codon_position)
 
@@ -40,7 +40,7 @@ class TestCodonPositions(unittest.TestCase):
         seq = 'GAATGGAAGACAAAGTCTCGTCCA'
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
         expected = 'GTAAATCC'
-        self.assertEqual(expected, seq_record.fist_codon_position(), 'Fist codon position')
+        self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
         expected = 'AGACACGC'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
@@ -52,7 +52,7 @@ class TestCodonPositions(unittest.TestCase):
         seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGACATTTGATTTACAAATGTGGTGGTATCGACAAGCGT'
         seq_record = SeqRecordExpanded(seq, reading_frame=2)
         expected = 'CGGTGATAAAGCTATATGGAGAC'
-        self.assertEqual(expected, seq_record.fist_codon_position(), 'Fist codon position')
+        self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
         expected = 'ATACGACCCCGATTAAGGGTAAG'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
@@ -64,7 +64,7 @@ class TestCodonPositions(unittest.TestCase):
         seq = 'GTCGTGGGGGCCCACGTGGACGTGG'
         seq_record = SeqRecordExpanded(seq, reading_frame=3)
         expected = 'CGGCCGCG'
-        self.assertEqual(expected, seq_record.fist_codon_position(), 'Fist codon position')
+        self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
         expected = 'GGGGCGGGG'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
