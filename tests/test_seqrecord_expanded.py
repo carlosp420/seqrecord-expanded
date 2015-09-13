@@ -106,7 +106,11 @@ class TestDegenerate(unittest.TestCase):
     def test_degen_s(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
         expected = 'AGYGARTGGAARACNAARMGNCCN'
-        self.assertEqual(expected, seq_record.degenerate(method='S'))
+        self.assertEqual(expected, seq_record.degenerate(method='S'), 'Using reading_frame=1')
+
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=3)
+        expected = 'TGAATGGARGAYAARGCNAGYA'
+        self.assertEqual(expected, seq_record.degenerate(method='S'), 'Using reading_frame=3')
 
     def test_degen_z(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
@@ -116,4 +120,8 @@ class TestDegenerate(unittest.TestCase):
     def test_degen_sz(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
         expected = 'NNNGARTGGAARACNAARMGNCCN'
-        self.assertEqual(expected, seq_record.degenerate(method='SZ'))
+        self.assertEqual(expected, seq_record.degenerate(method='SZ'), 'Using reading_frame=1')
+
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=3)
+        expected = 'TGAATGGARGAYAARGCNNNNA'
+        self.assertEqual(expected, seq_record.degenerate(method='SZ'), 'Using reading_frame=3')

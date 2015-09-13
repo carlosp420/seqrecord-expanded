@@ -28,6 +28,7 @@ class SeqRecordExpanded(SeqRecord):
         self.gene_code = gene_code
         self.reading_frame = reading_frame
         self.table = table
+        self._sequence_was_corrected = None
 
     def first_codon_position(self):
         """
@@ -109,8 +110,11 @@ class SeqRecordExpanded(SeqRecord):
         Trims leading end of `self.seq` if the reading frame does not start in 1st codon position
         of the sequence.
         """
-        if self.reading_frame == 2:
-            self.seq = self.seq[1:]
+        if not self._sequence_was_corrected:
+            self._sequence_was_corrected = True
 
-        if self.reading_frame == 3:
-            self.seq = self.seq[2:]
+            if self.reading_frame == 2:
+                self.seq = self.seq[1:]
+
+            if self.reading_frame == 3:
+                self.seq = self.seq[2:]
