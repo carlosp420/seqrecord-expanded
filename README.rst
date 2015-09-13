@@ -1,5 +1,5 @@
-.. image:: https://pypip.in/v/seqrecord-expanded/badge.png
-   :target: https://pypi.python.org/pypi/seqrecord-expanded
+.. image:: https://img.shields.io/pypi/v/seqrecord-expanded.svg
+   :target: https://pypi.python.org/pypi/seqrecord-expanded/
    :alt: Latest PyPI version
 
 .. image:: https://travis-ci.org/carlosp420/seqrecord-expanded.png
