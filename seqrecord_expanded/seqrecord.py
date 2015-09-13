@@ -2,6 +2,8 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 
+from degenerate_dna import Degenera
+
 from .utils import chain_and_flatten
 
 
@@ -15,19 +17,20 @@ class SeqRecordExpanded(SeqRecord):
         - taxonomy           - dictionary {'genus': 'Aus', 'species': 'bus'}.
         - gene_code          - gene code.
         - reading_frame      - integer. 1, 2 or 3.
-        - translation_table  - integer. NCBI code for translation table.
+        - table  - integer. NCBI code for translation table.
     """
     def __init__(self, *args, voucher_code=None, taxonomy=None, gene_code=None,
-                 reading_frame=None, translation_table=None, **kwargs):
+                 reading_frame=None, table=None, **kwargs):
         super(SeqRecordExpanded, self).__init__(*args, **kwargs)
         self._seq = Seq(args[0], alphabet=IUPAC.ambiguous_dna)
         self.voucher_code = voucher_code
         self.taxonomy = taxonomy
         self.gene_code = gene_code
         self.reading_frame = reading_frame
-        self.translation_table = translation_table
+        self.table = table
+        self._sequence_was_corrected = None
 
-    def fist_codon_position(self):
+    def first_codon_position(self):
         """
         :return: string containing the first positions of each codon.
         """
@@ -85,4 +88,33 @@ class SeqRecordExpanded(SeqRecord):
         """
         :return: string containing both positions of each codon.
         """
-        return chain_and_flatten(self.fist_codon_position(), self.second_codon_position())
+        return chain_and_flatten(self.first_codon_position(), self.second_codon_position())
+
+    def degenerate(self, method=None):
+        self.check_reading_frame()
+        self.correct_seq_based_on_reading_frame()
+
+        if not method:
+            table = self.table
+            method = 'normal'
+        else:
+            table = 1
+            method = method
+
+        res = Degenera(dna=str(self.seq), table=table, method=method)
+        res.degenerate()
+        return res.degenerated
+
+    def correct_seq_based_on_reading_frame(self):
+        """
+        Trims leading end of `self.seq` if the reading frame does not start in 1st codon position
+        of the sequence.
+        """
+        if not self._sequence_was_corrected:
+            self._sequence_was_corrected = True
+
+            if self.reading_frame == 2:
+                self.seq = self.seq[1:]
+
+            if self.reading_frame == 3:
+                self.seq = self.seq[2:]

@@ -1,5 +1,7 @@
 import unittest
 
+from degenerate_dna import exceptions
+
 from seqrecord_expanded import SeqRecordExpanded
 
 
@@ -12,25 +14,25 @@ class TestCodonPositions(unittest.TestCase):
 
     def test_missing_reading_frame(self):
         seq_record = SeqRecordExpanded(self.seq)
-        self.assertRaises(AttributeError, seq_record.fist_codon_position)
+        self.assertRaises(AttributeError, seq_record.first_codon_position)
         self.assertRaises(AttributeError, seq_record.second_codon_position)
         self.assertRaises(AttributeError, seq_record.third_codon_position)
 
     def test_wrong_reading_frame_int(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=4)
-        self.assertRaises(ValueError, seq_record.fist_codon_position)
+        self.assertRaises(ValueError, seq_record.first_codon_position)
         self.assertRaises(ValueError, seq_record.second_codon_position)
         self.assertRaises(ValueError, seq_record.third_codon_position)
 
     def test_wrong_reading_frame_str(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame='1')
-        self.assertRaises(ValueError, seq_record.fist_codon_position)
+        self.assertRaises(ValueError, seq_record.first_codon_position)
         self.assertRaises(ValueError, seq_record.second_codon_position)
         self.assertRaises(ValueError, seq_record.third_codon_position)
 
     def test_wrong_reading_frame_empty(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame='')
-        self.assertRaises(AttributeError, seq_record.fist_codon_position)
+        self.assertRaises(AttributeError, seq_record.first_codon_position)
         self.assertRaises(AttributeError, seq_record.second_codon_position)
         self.assertRaises(AttributeError, seq_record.third_codon_position)
 
@@ -38,7 +40,7 @@ class TestCodonPositions(unittest.TestCase):
         seq = 'GAATGGAAGACAAAGTCTCGTCCA'
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
         expected = 'GTAAATCC'
-        self.assertEqual(expected, seq_record.fist_codon_position(), 'Fist codon position')
+        self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
         expected = 'AGACACGC'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
@@ -50,7 +52,7 @@ class TestCodonPositions(unittest.TestCase):
         seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGACATTTGATTTACAAATGTGGTGGTATCGACAAGCGT'
         seq_record = SeqRecordExpanded(seq, reading_frame=2)
         expected = 'CGGTGATAAAGCTATATGGAGAC'
-        self.assertEqual(expected, seq_record.fist_codon_position(), 'Fist codon position')
+        self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
         expected = 'ATACGACCCCGATTAAGGGTAAG'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
@@ -62,7 +64,7 @@ class TestCodonPositions(unittest.TestCase):
         seq = 'GTCGTGGGGGCCCACGTGGACGTGG'
         seq_record = SeqRecordExpanded(seq, reading_frame=3)
         expected = 'CGGCCGCG'
-        self.assertEqual(expected, seq_record.fist_codon_position(), 'Fist codon position')
+        self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
         expected = 'GGGGCGGGG'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
@@ -75,3 +77,51 @@ class TestCodonPositions(unittest.TestCase):
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
         expected = 'GATGAAACAATCCGCC'
         self.assertEqual(expected, seq_record.first_and_second_codon_positions())
+
+
+class TestDegenerate(unittest.TestCase):
+    def setUp(self):
+        self.table = 1  # translation table
+        self.voucher_code = 'CP100-09'
+        self.taxonomy = {'genus': 'Aus', 'species': 'bus'}
+        self.seq = 'TCTGAATGGAAGACAAAGCGTCCA'
+
+    def test_degen_no_reading_frame(self):
+        seq_record = SeqRecordExpanded(self.seq)
+        self.assertRaises(AttributeError, seq_record.degenerate, 'Missing reading_frame.')
+
+    def test_degen_missing_table_and_method(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        self.assertRaises(exceptions.WrongParameterError, seq_record.degenerate, 'Missing reading_frame.')
+
+    def test_degen_standard(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1, table=1)
+        expected = 'TCNGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate(), 'Using reading_frame=1')
+
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=2, table=1)
+        expected = 'YTNAAYGGNMGNCARAGYGTNCA'
+        self.assertEqual(expected, seq_record.degenerate(), 'Using reading_frame=2')
+
+    def test_degen_s(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        expected = 'AGYGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate(method='S'), 'Using reading_frame=1')
+
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=3)
+        expected = 'TGAATGGARGAYAARGCNAGYA'
+        self.assertEqual(expected, seq_record.degenerate(method='S'), 'Using reading_frame=3')
+
+    def test_degen_z(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        expected = 'TCNGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate(method='Z'))
+
+    def test_degen_sz(self):
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
+        expected = 'NNNGARTGGAARACNAARMGNCCN'
+        self.assertEqual(expected, seq_record.degenerate(method='SZ'), 'Using reading_frame=1')
+
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=3)
+        expected = 'TGAATGGARGAYAARGCNNNNA'
+        self.assertEqual(expected, seq_record.degenerate(method='SZ'), 'Using reading_frame=3')

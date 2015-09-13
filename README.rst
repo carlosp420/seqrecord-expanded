@@ -26,30 +26,50 @@ By default it assumes a DNA sequence with ambiguous characters.
 .. code:: python
 
     >>> from seqrecord_expanded import SeqRecordExpanded
-    >>> seq_record = SeqRecordExpanded('ATGCTARCRATARAAC',
+    >>> seq_record = SeqRecordExpanded('TCTGAATGGAAGACAAAGCGTCCA',
     ...                                voucher_code='CP100-09',
     ...                                taxonomy={'genus': 'Melitaea',
     ...                                          'species': 'phoebe',
     ...                                         },
     ...                                gene_code='EF1a',
-    ...                                reading_frame=2,
+    ...                                reading_frame=1,
     ...                                table=1,  # translation table
     ...                                )
-    >>> # Degenerate sequence
-    >>> seq_record.degenerate('S')
-    ... PLRDOI
+    >>> # Degenerate sequence standard genetic code
+    >>> seq_record.degenerate()
+    'TCNGARTGGAARACNAARMGNCCN'
+    >>>
+    >>> # Degenerate sequence S method
+    >>> seq_record.degenerate(method='S')
+    'AGYGARTGGAARACNAARMGNCCN'
+    >>>
+    >>> # Degenerate sequence Z method
+    >>> seq_record.degenerate(method='Z')
+    'TCNGARTGGAARACNAARMGNCCN'
+    >>>
+    >>> # Degenerate sequence SZ method
+    >>> seq_record.degenerate(method='SZ')
+    'NNNGARTGGAARACNAARMGNCCN'
     >>>
     >>> # get first codon positions
     >>> seq_record.first_codon_position()
-    ... TTCTA
+    'TGTAAACC'
+    >>>
+    >>> # get second codon positions
+    >>> seq_record.second_codon_position()
+    'CAGACAGC'
+    >>>
+    >>> # get third codon positions
+    >>> seq_record.third_codon_position()
+    'TAGGAGTA'
     >>>
     >>> # get first and second positions
     >>> seq_record.first_and_second_positions()
-    ... TGTACRTAAA
+    'TCGATGAAACAACGCC'
     >>>
     >>> # translate
     >>> seq_record.translate()
-    ... OKPDOR
+    OKPDOR
 
 Installation
 ------------
@@ -60,7 +80,7 @@ Installation
 
 Requirements
 ^^^^^^^^^^^^
-BioPython:
+Python3.
 
 .. code-block:: shell
 
