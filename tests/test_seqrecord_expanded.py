@@ -97,7 +97,11 @@ class TestDegenerate(unittest.TestCase):
     def test_degen_standard(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=1, table=1)
         expected = 'TCNGARTGGAARACNAARMGNCCN'
-        self.assertEqual(expected, seq_record.degenerate())
+        self.assertEqual(expected, seq_record.degenerate(), 'Using reading_frame=1')
+
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=2, table=1)
+        expected = 'YTNAAYGGNMGNCARAGYGTNCA'
+        self.assertEqual(expected, seq_record.degenerate(), 'Using reading_frame=2')
 
     def test_degen_s(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=1)

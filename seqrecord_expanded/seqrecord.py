@@ -91,6 +91,7 @@ class SeqRecordExpanded(SeqRecord):
 
     def degenerate(self, method=None):
         self.check_reading_frame()
+        self.correct_seq_based_on_reading_frame()
 
         if not method:
             table = self.table
@@ -102,3 +103,14 @@ class SeqRecordExpanded(SeqRecord):
         res = Degenera(dna=str(self.seq), table=table, method=method)
         res.degenerate()
         return res.degenerated
+
+    def correct_seq_based_on_reading_frame(self):
+        """
+        Trims leading end of `self.seq` if the reading frame does not start in 1st codon position
+        of the sequence.
+        """
+        if self.reading_frame == 2:
+            self.seq = self.seq[1:]
+
+        if self.reading_frame == 3:
+            self.seq = self.seq[2:]
