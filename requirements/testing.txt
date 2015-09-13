@@ -1,7 +1,9 @@
 -r base.txt
 
-radon
-nose
+bumpversion
 coverage
 coveralls
+nose
 pep8
+radon
+
