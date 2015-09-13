@@ -15,9 +15,8 @@
 
 seqrecord-expanded
 ==================
-
-BioPython's SeqRecord class, but expanded with additional methods: degenerate
-seqs, codon positions based on reading frames, etc.
+Another SeqRecord class with methods: degenerate seqs, codon positions based on
+reading frames, etc.
 
 Usage
 -----

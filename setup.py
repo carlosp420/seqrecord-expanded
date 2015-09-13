@@ -9,7 +9,7 @@ setuptools.setup(
     author="Carlos Peña",
     author_email="mycalesis@gmail.com",
 
-    description="BioPython's SeqRecord class, but expanded with additional methods: degenerate seqs, codon positions based on reading frames, etc.",
+    description="Another SeqRecord class with methods: degenerate seqs, codon positions based on reading frames, etc.",
     long_description=open('README.rst').read(),
 
     packages=['seqrecord_expanded'],
