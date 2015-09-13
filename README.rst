@@ -94,9 +94,12 @@ By default it assumes a DNA sequence with ambiguous characters.
     >>> seq_record.first_and_second_positions()
     'TCGATGAAACAACGCC'
     >>>
-    >>> # translate
+    >>> # translate to aminoacid sequence
     >>> seq_record.translate()
-    OKPDOR
+    'SEWKTKRP'
+    >>> # translate to aminoacid sequence
+    >>> seq_record.translate(table=1)
+    'SEWKTKRP'
 
 Installation
 ------------
