@@ -4,17 +4,11 @@ seqrecord-expanded
 .. list-table::
     :stub-columns: 1
 
-    * - docs
-      - |docs|
     * - tests
       - | |travis| |requires| |coveralls|
         | |quantified-code|
     * - package
       - |version| |wheel| |supported-versions| |supported-implementations|
-
-.. |docs| image:: https://readthedocs.org/projects/seqrecord-expanded/badge/?style=flat
-    :target: https://readthedocs.org/projects/seqrecord-expanded
-    :alt: Documentation Status
 
 .. |travis| image:: https://travis-ci.org/carlosp420/seqrecord-expanded.svg?branch=master
     :alt: Travis-CI Build Status
@@ -113,7 +107,7 @@ Installation
 
 Requirements
 ^^^^^^^^^^^^
-Python3.
+Supported Python versions: 2.6, 2.7, 3.3, 3.4, pypy.
 
 .. code-block:: shell
 
