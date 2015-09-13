@@ -6,4 +6,5 @@ coveralls
 nose
 pep8
 radon
+wheel
 
