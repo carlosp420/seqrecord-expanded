@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="seqrecord-expanded",
-    version="0.0.0",
+    version="0.0.1",
     url="https://github.com/carlosp420/seqrecord-expanded",
 
     author="Carlos Peña",
