@@ -1,4 +1,3 @@
-from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 
@@ -7,7 +6,7 @@ from degenerate_dna import Degenera
 from .utils import chain_and_flatten
 
 
-class SeqRecordExpanded(SeqRecord):
+class SeqRecordExpanded(object):
     """Creates an Expanded SeqRecord.
 
     Assumes DNA ambiguous sequence.
@@ -19,10 +18,9 @@ class SeqRecordExpanded(SeqRecord):
         - reading_frame      - integer. 1, 2 or 3.
         - table  - integer. NCBI code for translation table.
     """
-    def __init__(self, *args, voucher_code=None, taxonomy=None, gene_code=None,
-                 reading_frame=None, table=None, **kwargs):
-        super(SeqRecordExpanded, self).__init__(*args, **kwargs)
-        self._seq = Seq(args[0], alphabet=IUPAC.ambiguous_dna)
+    def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
+                 reading_frame=None, table=None):
+        self.seq = Seq(seq, alphabet=IUPAC.ambiguous_dna)
         self.voucher_code = voucher_code
         self.taxonomy = taxonomy
         self.gene_code = gene_code

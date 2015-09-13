@@ -1,23 +1,56 @@
-.. image:: https://img.shields.io/pypi/v/seqrecord-expanded.svg
-   :target: https://pypi.python.org/pypi/seqrecord-expanded/
-   :alt: Latest PyPI version
-
-.. image:: https://travis-ci.org/carlosp420/seqrecord-expanded.png
-   :target: https://travis-ci.org/carlosp420/seqrecord-expanded
-   :alt: Latest Travis CI build status
-
-.. image:: https://coveralls.io/repos/carlosp420/seqrecord-expanded/badge.svg?branch=master&service=github
-   :target: https://coveralls.io/github/carlosp420/seqrecord-expanded?branch=master
-
-.. image:: https://www.quantifiedcode.com/api/v1/project/b0bf8d6e31704c11abeb0b9043c11891/badge.svg
-   :target: https://www.quantifiedcode.com/app/project/b0bf8d6e31704c11abeb0b9043c11891
-   :alt: Code issues
-
 seqrecord-expanded
 ==================
 
-BioPython's SeqRecord class, but expanded with additional methods: degenerate
-seqs, codon positions based on reading frames, etc.
+.. list-table::
+    :stub-columns: 1
+
+    * - docs
+      - |docs|
+    * - tests
+      - | |travis| |requires| |coveralls|
+        | |quantified-code|
+    * - package
+      - |version| |wheel| |supported-versions| |supported-implementations|
+
+.. |docs| image:: https://readthedocs.org/projects/seqrecord-expanded/badge/?style=flat
+    :target: https://readthedocs.org/projects/seqrecord-expanded
+    :alt: Documentation Status
+
+.. |travis| image:: https://travis-ci.org/carlosp420/seqrecord-expanded.svg?branch=master
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/carlosp420/seqrecord-expanded
+
+.. |requires| image:: https://requires.io/github/carlosp420/seqrecord-expanded/requirements.svg?branch=master
+    :alt: Requirements Status
+    :target: https://requires.io/github/carlosp420/seqrecord-expanded/requirements/?branch=master
+
+.. |coveralls| image:: https://coveralls.io/repos/carlosp420/seqrecord-expanded/badge.svg?branch=master&service=github
+    :alt: Coverage Status
+    :target: https://coveralls.io/r/carlosp420/seqrecord-expanded
+
+.. |version| image:: https://img.shields.io/pypi/v/seqrecord-expanded.svg?style=flat
+    :alt: PyPI Package latest release
+    :target: https://pypi.python.org/pypi/seqrecord-expanded
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/seqrecord-expanded.svg?style=flat
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/seqrecord-expanded
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/seqrecord-expanded.svg?style=flat
+    :alt: Supported versions
+    :target: https://pypi.python.org/pypi/seqrecord-expanded
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/seqrecord-expanded.svg?style=flat
+    :alt: Supported implementations
+    :target: https://pypi.python.org/pypi/seqrecord-expanded
+
+.. |quantified-code| image:: https://www.quantifiedcode.com/api/v1/project/b0bf8d6e31704c11abeb0b9043c11891/badge.svg
+   :alt: Code issues
+   :target: https://www.quantifiedcode.com/app/project/b0bf8d6e31704c11abeb0b9043c11891
+
+
+Another SeqRecord class with methods: degenerate seqs, codon positions based on
+reading frames, etc.
 
 Usage
 -----
