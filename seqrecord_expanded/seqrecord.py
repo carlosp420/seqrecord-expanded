@@ -128,7 +128,10 @@ class SeqRecordExpanded(object):
         self._check_translation_table(table)
         self._correct_seq_based_on_reading_frame()
 
-        return str(self.seq.translate(table=self.table))
+        if not table:
+            return str(self.seq.translate(table=self.table))
+        else:
+            return str(self.seq.translate(table=table))
 
     def _check_translation_table(self, table):
         if self.table is None and table is None:
