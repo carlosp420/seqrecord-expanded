@@ -93,8 +93,12 @@ class SeqRecordExpanded(SeqRecord):
         self.check_reading_frame()
 
         if not method:
-            res = Degenera(dna=self.seq, table=self.table, method='normal')
+            table = self.table
+            method = 'normal'
         else:
-            res = Degenera(dna=self.seq, table=1, method=method)
+            table = 1
+            method = method
+
+        res = Degenera(dna=str(self.seq), table=table, method=method)
         res.degenerate()
         return res.degenerated
