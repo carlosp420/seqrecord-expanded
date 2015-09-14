@@ -110,7 +110,6 @@ Installation
 
 Requirements
 ^^^^^^^^^^^^
-Supported Python versions: 2.6, 2.7, 3.3, 3.4, 3.5, pypy.
 
 .. code-block:: shell
 
@@ -119,6 +118,7 @@ Supported Python versions: 2.6, 2.7, 3.3, 3.4, 3.5, pypy.
 
 Compatibility
 -------------
+Supported Python versions: 2.6, 2.7, 3.3, 3.4, 3.5, pypy.
 
 Licence
 -------
