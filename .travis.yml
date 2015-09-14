@@ -1,20 +1,27 @@
 language: python
+
 sudo: false
+
 python:
     - "2.6"
     - "2.7"
     - "3.3"
     - "3.4"
+    # - "3.5"
     - "pypy"
+
 before_install:
   - python --version
   - uname -a
   - lsb_release -a
+
 install: "pip install -r requirements/testing.txt"
+
 notifications:
   email:
     on_success: never
     on_failure: always
+
 # command to run tests, e.g. python setup.py test
 script: make coverage
 
