@@ -12,12 +12,29 @@ class SeqRecordExpanded(object):
 
     Assumes DNA ambiguous sequence.
 
-    Arguments:
+    Parameters:
+        - seq                - DNA sequence as string.
+        - voucher_code       - code of voucher tha the sequence belongs to.
+        - taxonomy           - dictionary {'genus': 'Aus', 'species': 'bus'}.
+        - gene_code          - gene code.
+        - reading_frame      - integer. 1, 2 or 3.
+        - table              - integer. NCBI code for translation table.
+
+    Attributes:
+        - seq                - DNA sequence as string.
         - voucher_code       - code of voucher tha the sequence belongs to.
         - taxonomy           - dictionary {'genus': 'Aus', 'species': 'bus'}.
         - gene_code          - gene code.
         - reading_frame      - integer. 1, 2 or 3.
         - table  - integer. NCBI code for translation table.
+
+    Methods:
+        - first_codon_position()   - returns first codon positions as string.
+        - second_codon_position()  - returns second codon positions as string.
+        - third_codon_position()   - returns third codon positions as string.
+        - first_and_second_codon_positions()  - returns first and second positions.
+        - degenerate(method)             - returns degenerated sequence using Zwick et al methods.
+        - translate(table)         - returns aminoacid sequence as string.
     """
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
                  reading_frame=None, table=None):

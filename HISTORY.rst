@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+0.0.x (2015-xx-xx)
+------------------
+* Added method to class description.
+
 0.0.2 (2015-09-13)
 ------------------
 * Added method to degenerate sequences according to Zwick et al. method: http://www.phylotools.com/ptdegenoverview.htm
