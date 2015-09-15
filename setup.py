@@ -18,7 +18,7 @@ setuptools.setup(
 
     install_requires=[
         'biopython==1.65',
-        'degenerate-dna==0.0.7',
+        'degenerate-dna==0.0.9',
         'six==1.9.0',
     ],
 
