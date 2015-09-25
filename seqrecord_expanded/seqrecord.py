@@ -85,8 +85,11 @@ class SeqRecordExpanded(object):
             second_position = seq[1::3]
         elif self.reading_frame == 2:
             second_position = seq[2::3]
-        else:  # self.reading_frame == 3
+        elif self.reading_frame == 3:
             second_position = seq[::3]
+        else:  # None
+            second_position = '?'
+            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
         return second_position
 
     def third_codon_position(self):
@@ -100,8 +103,11 @@ class SeqRecordExpanded(object):
             third_position = seq[2::3]
         elif self.reading_frame == 2:
             third_position = seq[::3]
-        else:  # self.reading_frame == 3
+        elif self.reading_frame == 3:
             third_position = seq[1::3]
+        else:  # None
+            third_position = '?'
+            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
         return third_position
 
     def first_and_second_codon_positions(self):
