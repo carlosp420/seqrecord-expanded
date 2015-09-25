@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 
@@ -27,6 +29,7 @@ class SeqRecordExpanded(object):
         - gene_code          - gene code.
         - reading_frame      - integer. 1, 2 or 3.
         - table  - integer. NCBI code for translation table.
+        - warnings           - list.
 
     Methods:
         - first_codon_position()   - returns first codon positions as string.
@@ -38,6 +41,7 @@ class SeqRecordExpanded(object):
     """
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
                  reading_frame=None, table=None):
+        self.warnings = []
         self.seq = Seq(seq, alphabet=IUPAC.ambiguous_dna)
         self.voucher_code = voucher_code
         self.taxonomy = taxonomy
@@ -57,18 +61,19 @@ class SeqRecordExpanded(object):
             first_position = seq[::3]
         elif self.reading_frame == 2:
             first_position = seq[1::3]
-        else:  # self.reading_frame == 3
+        elif self.reading_frame == 3:
             first_position = seq[2::3]
+        else:  # None
+            first_position = '?'
+            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
         return first_position
 
     def _check_reading_frame(self):
         """
-        Raises errors if reading frame is not integer and is not 1, 2 or 3.
+        Raises errors if reading frame is not integer and is not 1, 2, 3 or None.
         """
-        if not self.reading_frame:
-            raise AttributeError("The reading_frame attribute is not set.")
-        if self.reading_frame not in [1, 2, 3]:
-            raise ValueError("The reading_frame attribute should be either 1, 2 or 3.")
+        if self.reading_frame not in [1, 2, 3, None]:
+            raise ValueError("The reading_frame attribute should be either 1, 2, 3 or None.")
 
     def second_codon_position(self):
         """
@@ -81,8 +86,11 @@ class SeqRecordExpanded(object):
             second_position = seq[1::3]
         elif self.reading_frame == 2:
             second_position = seq[2::3]
-        else:  # self.reading_frame == 3
+        elif self.reading_frame == 3:
             second_position = seq[::3]
+        else:  # None
+            second_position = '?'
+            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
         return second_position
 
     def third_codon_position(self):
@@ -96,8 +104,11 @@ class SeqRecordExpanded(object):
             third_position = seq[2::3]
         elif self.reading_frame == 2:
             third_position = seq[::3]
-        else:  # self.reading_frame == 3
+        elif self.reading_frame == 3:
             third_position = seq[1::3]
+        else:  # None
+            third_position = '?'
+            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
         return third_position
 
     def first_and_second_codon_positions(self):
@@ -129,11 +140,15 @@ class SeqRecordExpanded(object):
         if not self._sequence_was_corrected:
             self._sequence_was_corrected = True
 
-            if self.reading_frame == 2:
+            if self.reading_frame == 1:
+                pass
+            elif self.reading_frame == 2:
                 self.seq = self.seq[1:]
-
-            if self.reading_frame == 3:
+            elif self.reading_frame == 3:
                 self.seq = self.seq[2:]
+            else:  # reading_frame is None
+                self.seq = '?'
+                self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
 
     def translate(self, table=None):
         """

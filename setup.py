@@ -12,7 +12,7 @@ setuptools.setup(
     author_email="mycalesis@gmail.com",
 
     description="Another SeqRecord class with methods: degenerate seqs, codon positions based on reading frames, etc.",
-    long_description=open('README.rst').read(),
+    long_description='%s\n%s' % (open('README.rst').read(), open('HISTORY.rst').read()),
 
     packages=['seqrecord_expanded'],
 
