@@ -15,29 +15,24 @@ class SeqRecordExpanded(object):
     Assumes DNA ambiguous sequence.
 
     Parameters:
-        - seq                - DNA sequence as string.
-        - voucher_code       - code of voucher tha the sequence belongs to.
-        - taxonomy           - dictionary {'genus': 'Aus', 'species': 'bus'}.
-        - gene_code          - gene code.
-        - reading_frame      - integer. 1, 2 or 3.
-        - table              - integer. NCBI code for translation table.
+        seq (str):            DNA sequence
+        voucher_code (str):   code of voucher that the sequence belongs to
+        taxonomy (dict):      ``{'genus': 'Aus', 'species': 'bus'}``
+        gene_code (str):      gene code
+        reading_frame (int):  1, 2 or 3.
+        table (int):          NCBI code for translation table
 
     Attributes:
-        - seq                - DNA sequence as string.
-        - voucher_code       - code of voucher tha the sequence belongs to.
-        - taxonomy           - dictionary {'genus': 'Aus', 'species': 'bus'}.
-        - gene_code          - gene code.
-        - reading_frame      - integer. 1, 2 or 3.
-        - table  - integer. NCBI code for translation table.
-        - warnings           - list.
+        seq:               DNA sequence as string
+        voucher_code:      Code of voucher tha the sequence belongs to.
+        taxonomy:          Dictionary ``{'genus': 'Aus', 'species': 'bus'}``.
+        gene_code:         Gene code.
+        reading_frame:     1, 2 or 3.
+        table:             NCBI code for translation table.
+        warnings:          List.
 
     Methods:
-        - first_codon_position()   - returns first codon positions as string.
-        - second_codon_position()  - returns second codon positions as string.
-        - third_codon_position()   - returns third codon positions as string.
-        - first_and_second_codon_positions()  - returns first and second positions.
-        - degenerate(method)             - returns degenerated sequence using Zwick et al methods.
-        - translate(table)         - returns aminoacid sequence as string.
+
     """
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
                  reading_frame=None, table=None):
@@ -118,6 +113,13 @@ class SeqRecordExpanded(object):
         return chain_and_flatten(self.first_codon_position(), self.second_codon_position())
 
     def degenerate(self, method=None):
+        """
+        Parameters:
+            method (str):   S, Z, SZ, normal
+
+        Returns:
+            (str): Degenerated sequence using Zwick et al methods.
+        """
         self._check_reading_frame()
         self._correct_seq_based_on_reading_frame()
 
@@ -153,8 +155,12 @@ class SeqRecordExpanded(object):
     def translate(self, table=None):
         """
         Uses BioPython translation method into Aminoacid sequence.
-        :param table: Optional. It can be specified when creating the class instance.
-        :return: str. Aminoacid sequence.
+
+        Parameters:
+            table (int): Optional. It can be specified when creating the class instance.
+
+        Returns:
+            (str): Aminoacid sequence.
         """
         self._check_reading_frame()
         self._check_translation_table(table)
