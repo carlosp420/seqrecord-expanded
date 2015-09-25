@@ -139,11 +139,15 @@ class SeqRecordExpanded(object):
         if not self._sequence_was_corrected:
             self._sequence_was_corrected = True
 
-            if self.reading_frame == 2:
+            if self.reading_frame == 1:
+                pass
+            elif self.reading_frame == 2:
                 self.seq = self.seq[1:]
-
-            if self.reading_frame == 3:
+            elif self.reading_frame == 3:
                 self.seq = self.seq[2:]
+            else:  # reading_frame is None
+                self.seq = '?'
+                self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
 
     def translate(self, table=None):
         """

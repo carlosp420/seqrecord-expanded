@@ -34,9 +34,9 @@ class TestCodonPositions(unittest.TestCase):
 
     def test_wrong_reading_frame_empty(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame='')
-        self.assertRaises(AttributeError, seq_record.first_codon_position)
-        self.assertRaises(AttributeError, seq_record.second_codon_position)
-        self.assertRaises(AttributeError, seq_record.third_codon_position)
+        self.assertRaises(ValueError, seq_record.first_codon_position)
+        self.assertRaises(ValueError, seq_record.second_codon_position)
+        self.assertRaises(ValueError, seq_record.third_codon_position)
 
     def test_getting_codon_positions_reading_frame_1(self):
         seq = 'GAATGGAAGACAAAGTCTCGTCCA'
@@ -90,7 +90,7 @@ class TestDegenerate(unittest.TestCase):
 
     def test_degen_no_reading_frame(self):
         seq_record = SeqRecordExpanded(self.seq)
-        self.assertRaises(AttributeError, seq_record.degenerate, 'Missing reading_frame.')
+        self.assertRaises(exceptions.MissingParameterError, seq_record.degenerate)
 
     def test_degen_missing_table_and_method(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=1)
