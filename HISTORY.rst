@@ -1,7 +1,7 @@
 HISTORY
 =======
 
-0.0.x (2015-xx-xx)
+0.1.x (2015-xx-xx)
 ------------------
 * Added method to class description.
 * If SeqRecord does not have the `reading_frame` parameter, it will issue a warning.
