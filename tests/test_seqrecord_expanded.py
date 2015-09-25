@@ -15,9 +15,9 @@ class TestCodonPositions(unittest.TestCase):
 
     def test_missing_reading_frame(self):
         seq_record = SeqRecordExpanded(self.seq)
-        seq_info = seq_record.first_codon_position
-        self.assertEqual(seq_info.seq, '?')
-        self.assertEqual(seq_info.warnings, ['SeqRecordExpanded warning'])
+        seq = seq_record.first_codon_position()
+        self.assertEqual(seq, '?')
+        self.assertEqual(seq_record.warnings, ['SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.'])
         # self.assertRaises(AttributeError, seq_record.second_codon_position)
         # self.assertRaises(AttributeError, seq_record.third_codon_position)
 

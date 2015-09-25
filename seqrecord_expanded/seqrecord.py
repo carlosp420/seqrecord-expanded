@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 
@@ -38,6 +40,7 @@ class SeqRecordExpanded(object):
     """
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
                  reading_frame=None, table=None):
+        self.warnings = []
         self.seq = Seq(seq, alphabet=IUPAC.ambiguous_dna)
         self.voucher_code = voucher_code
         self.taxonomy = taxonomy
@@ -57,18 +60,19 @@ class SeqRecordExpanded(object):
             first_position = seq[::3]
         elif self.reading_frame == 2:
             first_position = seq[1::3]
-        else:  # self.reading_frame == 3
+        elif self.reading_frame == 3:
             first_position = seq[2::3]
+        else:  # None
+            first_position = '?'
+            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
         return first_position
 
     def _check_reading_frame(self):
         """
-        Raises errors if reading frame is not integer and is not 1, 2 or 3.
+        Raises errors if reading frame is not integer and is not 1, 2, 3 or None.
         """
-        if not self.reading_frame:
-            raise AttributeError("The reading_frame attribute is not set.")
-        if self.reading_frame not in [1, 2, 3]:
-            raise ValueError("The reading_frame attribute should be either 1, 2 or 3.")
+        if self.reading_frame not in [1, 2, 3, None]:
+            raise ValueError("The reading_frame attribute should be either 1, 2, 3 or None.")
 
     def second_codon_position(self):
         """
