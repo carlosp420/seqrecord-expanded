@@ -6,6 +6,7 @@ HISTORY
 * Added method to class description.
 * If SeqRecord does not have the `reading_frame` parameter, it will issue a warning.
   It used to issue an exception.
+* Added documentation using sphinx.
 
 0.0.2 (2015-09-13)
 ------------------
