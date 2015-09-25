@@ -29,6 +29,7 @@ class SeqRecordExpanded(object):
         - gene_code          - gene code.
         - reading_frame      - integer. 1, 2 or 3.
         - table  - integer. NCBI code for translation table.
+        - warnings           - list.
 
     Methods:
         - first_codon_position()   - returns first codon positions as string.
