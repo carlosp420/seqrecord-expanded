@@ -1,4 +1,4 @@
-from collections import namedtuple
+import warnings
 
 from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
@@ -7,6 +7,7 @@ from degenerate_dna import Degenera
 
 from .utils import chain_and_flatten
 from .exceptions import MissingParameterError
+from ._warnings import SeqRecordExpandedWarning
 
 
 class SeqRecordExpanded(object):
@@ -60,7 +61,9 @@ class SeqRecordExpanded(object):
             first_position = seq[2::3]
         else:  # None
             first_position = '?'
-            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
+            msg = 'reading_frame attribute should be either 1, 2 or 3.'
+            warnings.warn(msg, SeqRecordExpandedWarning)
+            self.warnings.append(msg)
         return first_position
 
     def _check_reading_frame(self):
@@ -85,7 +88,9 @@ class SeqRecordExpanded(object):
             second_position = seq[::3]
         else:  # None
             second_position = '?'
-            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
+            msg = 'reading_frame attribute should be either 1, 2 or 3.'
+            warnings.warn(msg, SeqRecordExpandedWarning)
+            self.warnings.append(msg)
         return second_position
 
     def third_codon_position(self):
@@ -103,7 +108,9 @@ class SeqRecordExpanded(object):
             third_position = seq[1::3]
         else:  # None
             third_position = '?'
-            self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
+            msg = 'reading_frame attribute should be either 1, 2 or 3.'
+            warnings.warn(msg, SeqRecordExpandedWarning)
+            self.warnings.append(msg)
         return third_position
 
     def first_and_second_codon_positions(self):
@@ -150,7 +157,9 @@ class SeqRecordExpanded(object):
                 self.seq = self.seq[2:]
             else:  # reading_frame is None
                 self.seq = '?'
-                self.warnings.append('SeqRecordExpanded warning: reading_frame attribute should be either 1, 2 or 3.')
+                msg = 'reading_frame attribute should be either 1, 2 or 3.'
+                warnings.warn(msg, SeqRecordExpandedWarning)
+                self.warnings.append(msg)
 
     def translate(self, table=None):
         """

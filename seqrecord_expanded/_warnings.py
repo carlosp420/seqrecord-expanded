@@ -1,0 +1,2 @@
+class SeqRecordExpandedWarning(Warning):
+    pass

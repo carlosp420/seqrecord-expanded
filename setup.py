@@ -1,5 +1,18 @@
+#!/usr/bin/env python
 # -*- encoding: utf-8 -*-
+from __future__ import absolute_import, print_function
+
+import io
 import setuptools
+from os.path import join
+from os.path import dirname
+
+
+def read(*names, **kwargs):
+    return io.open(
+        join(dirname(__file__), *names),
+        encoding=kwargs.get('encoding', 'utf8')
+    ).read()
 
 
 setuptools.setup(
@@ -12,7 +25,7 @@ setuptools.setup(
     author_email="mycalesis@gmail.com",
 
     description="Another SeqRecord class with methods: degenerate seqs, codon positions based on reading frames, etc.",
-    long_description='%s\n%s' % (open('README.rst').read(), open('HISTORY.rst').read()),
+    long_description='%s' % read('README.rst'),
 
     packages=['seqrecord_expanded'],
 
