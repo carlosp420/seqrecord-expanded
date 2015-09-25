@@ -15,9 +15,11 @@ class TestCodonPositions(unittest.TestCase):
 
     def test_missing_reading_frame(self):
         seq_record = SeqRecordExpanded(self.seq)
-        self.assertRaises(AttributeError, seq_record.first_codon_position)
-        self.assertRaises(AttributeError, seq_record.second_codon_position)
-        self.assertRaises(AttributeError, seq_record.third_codon_position)
+        seq_info = seq_record.first_codon_position
+        self.assertEqual(seq_info.seq, '?')
+        self.assertEqual(seq_info.warnings, ['SeqRecordExpanded warning'])
+        # self.assertRaises(AttributeError, seq_record.second_codon_position)
+        # self.assertRaises(AttributeError, seq_record.third_codon_position)
 
     def test_wrong_reading_frame_int(self):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=4)
@@ -162,4 +164,3 @@ class TestTranslate(unittest.TestCase):
         seq_record = SeqRecordExpanded(seq, reading_frame=2)
         expected = 'HVDSGKSTTTG'
         self.assertEqual(expected, seq_record.translate(table=1))
-
