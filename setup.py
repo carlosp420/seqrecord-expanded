@@ -17,7 +17,7 @@ def read(*names, **kwargs):
 
 setuptools.setup(
     name="seqrecord-expanded",
-    version="0.2.0",
+    version="0.2",
     license="BSD",
     url="https://github.com/carlosp420/seqrecord-expanded",
 

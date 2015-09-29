@@ -1,8 +1,8 @@
 HISTORY
 =======
 
-0.2.0 (2015-09-29)
-------------------
+0.2 (2015-09-29)
+----------------
 * Added method to class description.
 * If SeqRecord does not have the `reading_frame` parameter, it will issue a warning.
   It used to issue an exception.
