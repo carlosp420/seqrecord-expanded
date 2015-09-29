@@ -38,7 +38,7 @@ class SeqRecordExpanded(object):
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
                  reading_frame=None, table=None):
         self.warnings = []
-        self.seq = Seq(seq, alphabet=IUPAC.ambiguous_dna)
+        self.seq = Seq(seq.replace('?', 'N'), alphabet=IUPAC.ambiguous_dna)
         self.voucher_code = voucher_code
         self.taxonomy = taxonomy
         self.gene_code = gene_code

@@ -7,6 +7,7 @@ HISTORY
 * If SeqRecord does not have the `reading_frame` parameter, it will issue a warning.
   It used to issue an exception.
 * Added documentation using sphinx.
+* Sequences will have '?' replaced by 'N' so translations to aminoacid will work.
 
 0.0.2 (2015-09-13)
 ------------------
