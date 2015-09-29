@@ -175,10 +175,11 @@ class SeqRecordExpanded(object):
         self._check_translation_table(table)
         self._correct_seq_based_on_reading_frame()
 
+        new_seq = Seq(str(self.seq).replace('?', 'N'), alphabet=IUPAC.ambiguous_dna)
         if not table:
-            return str(self.seq.translate(table=self.table))
+            return str(new_seq.translate(table=self.table))
         else:
-            return str(self.seq.translate(table=table))
+            return str(new_seq.translate(table=table))
 
     def _check_translation_table(self, table):
         if self.table is None and table is None:

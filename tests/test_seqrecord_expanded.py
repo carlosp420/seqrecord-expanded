@@ -139,6 +139,11 @@ class TestTranslate(unittest.TestCase):
         expected = 'SEWKTKRP'
         self.assertEqual(expected, seq_record.translate(), 'Using reading_frame=1')
 
+        seq = 'TCTGAATGGAA?ACAAAGCGT???'
+        seq_record = SeqRecordExpanded(seq, reading_frame=1, table=1)
+        expected = 'SEWXTKRX'
+        self.assertEqual(expected, seq_record.translate(), 'Using reading_frame=1')
+
         seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGA'
         seq_record = SeqRecordExpanded(seq, reading_frame=2, table=1)
         expected = 'HVDSGKSTTTG'
