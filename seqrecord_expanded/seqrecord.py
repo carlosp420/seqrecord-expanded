@@ -32,7 +32,8 @@ class SeqRecordExpanded(object):
         table:             NCBI code for translation table.
         warnings:          List.
 
-    Methods:
+    Raises:
+        MissingParameterError:  if ``reading_frame`` is not specified.
 
     """
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
@@ -60,10 +61,7 @@ class SeqRecordExpanded(object):
         elif self.reading_frame == 3:
             first_position = seq[2::3]
         else:  # None
-            first_position = '?'
-            msg = 'reading_frame attribute should be either 1, 2 or 3.'
-            warnings.warn(msg, SeqRecordExpandedWarning)
-            self.warnings.append(msg)
+            raise MissingParameterError('reading_frame attribute for gene {0} should be either 1, 2 or 3.'.format(self.gene_code))
         return first_position
 
     def _check_reading_frame(self):
@@ -87,10 +85,7 @@ class SeqRecordExpanded(object):
         elif self.reading_frame == 3:
             second_position = seq[::3]
         else:  # None
-            second_position = '?'
-            msg = 'reading_frame attribute should be either 1, 2 or 3.'
-            warnings.warn(msg, SeqRecordExpandedWarning)
-            self.warnings.append(msg)
+            raise MissingParameterError('reading_frame attribute for gene {0} should be either 1, 2 or 3.'.format(self.gene_code))
         return second_position
 
     def third_codon_position(self):
@@ -107,10 +102,7 @@ class SeqRecordExpanded(object):
         elif self.reading_frame == 3:
             third_position = seq[1::3]
         else:  # None
-            third_position = '?'
-            msg = 'reading_frame attribute should be either 1, 2 or 3.'
-            warnings.warn(msg, SeqRecordExpandedWarning)
-            self.warnings.append(msg)
+            raise MissingParameterError('reading_frame attribute for gene {0} should be either 1, 2 or 3.'.format(self.gene_code))
         return third_position
 
     def first_and_second_codon_positions(self):
