@@ -33,7 +33,9 @@ class SeqRecordExpanded(object):
         warnings:          List.
 
     Raises:
-        MissingParameterError:  if ``reading_frame`` is not specified.
+        MissingParameterError:  if user wants either first, second, third or
+                                first and second codon positions and
+                                ``reading_frame`` is not specified.
 
     """
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
