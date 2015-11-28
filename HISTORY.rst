@@ -1,6 +1,15 @@
 HISTORY
 =======
 
+0.2.3 (2015-11-29)
+------------------
+* Implemented translation of gapped sequences. It assumes that gaps are defined
+  as "-".
+
+0.2.1 (2015-09-30)
+------------------
+* Raises error if reading frame is not specified.
+
 0.2.0 (2015-09-29)
 ------------------
 * Added method to class description.
