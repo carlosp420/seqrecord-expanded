@@ -1,11 +1,11 @@
 import warnings
 
-from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 
 from degenerate_dna import Degenera
 
 from .utils import chain_and_flatten
+from .utils import NewSeq as Seq
 from .exceptions import MissingParameterError
 from ._warnings import SeqRecordExpandedWarning
 
@@ -171,9 +171,9 @@ class SeqRecordExpanded(object):
 
         new_seq = Seq(str(self.seq).replace('?', 'N'), alphabet=IUPAC.ambiguous_dna)
         if not table:
-            return str(new_seq.translate(table=self.table))
+            return str(new_seq.translate(table=self.table, gap="-"))
         else:
-            return str(new_seq.translate(table=table))
+            return str(new_seq.translate(table=table, gap="-"))
 
     def _check_translation_table(self, table):
         if self.table is None and table is None:

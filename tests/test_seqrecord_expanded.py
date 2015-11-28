@@ -167,3 +167,9 @@ class TestTranslate(unittest.TestCase):
         seq_record = SeqRecordExpanded(seq, reading_frame=2)
         expected = 'HVDSGKSTTTG'
         self.assertEqual(expected, seq_record.translate(table=1))
+
+    def test_gapped_translation(self):
+        seq = 'TCT---GAATGGAAGACAAAGCGTCCA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=1)
+        expected = 'S-EWKTKRP'
+        self.assertEqual(expected, seq_record.translate(table=1))
