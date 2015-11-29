@@ -7,7 +7,6 @@ if six.PY2:
 else:
     from itertools import zip_longest
 
-
 from Bio._py3k import range
 from Bio._py3k import basestring
 from Bio import Alphabet
