@@ -1,12 +1,13 @@
 import warnings
 
 from Bio.Alphabet import IUPAC
+from Bio.Data.CodonTable import TranslationError
 
 from degenerate_dna import Degenera
 
 from .utils import chain_and_flatten
 from .utils import NewSeq as Seq
-from .exceptions import MissingParameterError
+from .exceptions import MissingParameterError, TranslationErrorMixedGappedSeq
 from ._warnings import SeqRecordExpandedWarning
 
 
@@ -52,6 +53,7 @@ class SeqRecordExpanded(object):
     def first_codon_position(self):
         """
         :return: string containing the first positions of each codon.
+
         """
         self._check_reading_frame()
 
@@ -67,8 +69,8 @@ class SeqRecordExpanded(object):
         return first_position
 
     def _check_reading_frame(self):
-        """
-        Raises errors if reading frame is not integer and is not 1, 2, 3 or None.
+        """Raises errors if reading frame is not integer and is not 1, 2, 3 or None.
+
         """
         if self.reading_frame not in [1, 2, 3, None]:
             raise ValueError("The reading_frame attribute should be either 1, 2, 3 or None.")
@@ -76,6 +78,7 @@ class SeqRecordExpanded(object):
     def second_codon_position(self):
         """
         :return: string containing the second positions of each codon.
+
         """
         self._check_reading_frame()
 
@@ -93,6 +96,7 @@ class SeqRecordExpanded(object):
     def third_codon_position(self):
         """
         :return: string containing the third positions of each codon.
+
         """
         self._check_reading_frame()
 
@@ -110,6 +114,7 @@ class SeqRecordExpanded(object):
     def first_and_second_codon_positions(self):
         """
         :return: string containing both positions of each codon.
+
         """
         return chain_and_flatten(self.first_codon_position(), self.second_codon_position())
 
@@ -120,6 +125,7 @@ class SeqRecordExpanded(object):
 
         Returns:
             (str): Degenerated sequence using Zwick et al methods.
+
         """
         self._check_reading_frame()
         self._correct_seq_based_on_reading_frame()
@@ -136,9 +142,11 @@ class SeqRecordExpanded(object):
         return res.degenerated
 
     def _correct_seq_based_on_reading_frame(self):
-        """
-        Trims leading end of `self.seq` if the reading frame does not start in 1st codon position
-        of the sequence.
+        """Trims leading end of `self.seq`.
+
+        If the reading frame does not start in 1st codon position of the
+        sequence.
+
         """
         if not self._sequence_was_corrected:
             self._sequence_was_corrected = True
@@ -156,20 +164,31 @@ class SeqRecordExpanded(object):
                 self.warnings.append(msg)
 
     def translate(self, table=None):
-        """
-        Uses BioPython translation method into Aminoacid sequence.
+        """Uses BioPython translation method into Aminoacid sequence.
 
         Parameters:
             table (int): Optional. It can be specified when creating the class instance.
 
         Returns:
             (str): Aminoacid sequence.
+
         """
         self._check_reading_frame()
         self._check_translation_table(table)
         self._correct_seq_based_on_reading_frame()
 
         new_seq = Seq(str(self.seq).replace('?', 'N'), alphabet=IUPAC.ambiguous_dna)
+        try:
+            translated_seq = self._translate(new_seq, table)
+        except TranslationError as e:
+            msg = e.__str__().replace("N", "?")
+            raise TranslationErrorMixedGappedSeq("Translation Error in sequence "
+                                                 "{0!r} {1!r}: {2}.".format(self.voucher_code,
+                                                                            self.gene_code,
+                                                                            msg))
+        return translated_seq
+
+    def _translate(self, new_seq, table):
         if not table:
             return str(new_seq.translate(table=self.table, gap="-"))
         else:

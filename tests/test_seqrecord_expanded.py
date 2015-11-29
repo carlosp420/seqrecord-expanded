@@ -4,6 +4,7 @@ from degenerate_dna import exceptions
 
 from seqrecord_expanded import SeqRecordExpanded
 from seqrecord_expanded.exceptions import MissingParameterError
+from seqrecord_expanded.exceptions import TranslationErrorMixedGappedSeq
 
 
 class TestCodonPositions(unittest.TestCase):
@@ -173,3 +174,9 @@ class TestTranslate(unittest.TestCase):
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
         expected = 'S-EWKTKRP'
         self.assertEqual(expected, seq_record.translate(table=1))
+
+    def test_gapped_translation_with_mixed_codons(self):
+        seq = 'TCTN--GAATGGAAGACAAAGCGTCCA'
+        seq_record = SeqRecordExpanded(seq, reading_frame=1)
+        self.assertRaises(TranslationErrorMixedGappedSeq, seq_record.translate,
+                          table=1)
