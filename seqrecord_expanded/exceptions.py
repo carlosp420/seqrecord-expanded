@@ -10,5 +10,5 @@ class TranslationErrorMixedGappedSeq(Exception):
 
     def __str__(self):
         return "Translation Error in sequence {0!r} {1!r}: {2}.".format(self.voucher_code,
-                                                                       self.gene_code,
-                                                                       self.msg)
+                                                                        self.gene_code,
+                                                                        self.msg)
