@@ -181,11 +181,7 @@ class SeqRecordExpanded(object):
         try:
             translated_seq = self._translate(new_seq, table)
         except TranslationError as e:
-            msg = e.__str__().replace("N", "?")
-            raise TranslationErrorMixedGappedSeq("Translation Error in sequence "
-                                                 "{0!r} {1!r}: {2}.".format(self.voucher_code,
-                                                                            self.gene_code,
-                                                                            msg))
+            raise TranslationErrorMixedGappedSeq(self.voucher_code, self.gene_code, e)
         return translated_seq
 
     def _translate(self, new_seq, table):
