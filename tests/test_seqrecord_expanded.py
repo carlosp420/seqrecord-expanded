@@ -180,3 +180,8 @@ class TestTranslate(unittest.TestCase):
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
         self.assertRaises(TranslationErrorMixedGappedSeq, seq_record.translate,
                           table=1)
+
+        try:
+            seq_record.translate(table=1)
+        except TranslationErrorMixedGappedSeq as e:
+            self.assertTrue("Gene" in e.__str__())
