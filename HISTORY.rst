@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+0.2.4 (2015-11-30)
+------------------
+* Raise custom exception if trying to translate 'N--'.
+
 0.2.3 (2015-11-29)
 ------------------
 * Implemented translation of gapped sequences. It assumes that gaps are defined
