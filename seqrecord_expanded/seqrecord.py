@@ -2,11 +2,11 @@ import warnings
 
 from Bio.Alphabet import IUPAC
 from Bio.Data.CodonTable import TranslationError
+from Bio.Seq import Seq
 
 from degenerate_dna import Degenera
 
 from .utils import chain_and_flatten
-from .utils import NewSeq as Seq
 from .exceptions import MissingParameterError, TranslationErrorMixedGappedSeq
 from ._warnings import SeqRecordExpandedWarning
 
