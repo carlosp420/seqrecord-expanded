@@ -8,8 +8,7 @@ else:
 
 
 def chain_and_flatten(seq1, seq2):
-    """Takes two strings (first and second codon positions) and chains and
-    intercalates them.
+    """Takes two strings (first and second codon positions) and chains them.
 
     Returns:
         (str): String of combining the two seq strings.
