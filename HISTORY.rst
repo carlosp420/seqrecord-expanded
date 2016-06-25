@@ -1,6 +1,11 @@
 HISTORY
 =======
 
+0.2.5 (2016-06-25)
+------------------
+* Upgraded requirements to Biopython 1.67
+* Removed temporal overwrite of Bio.Seq class for translation of gapped sequences.
+
 0.2.4 (2015-11-30)
 ------------------
 * Raise custom exception if trying to translate 'N--'.
