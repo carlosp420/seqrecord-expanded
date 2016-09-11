@@ -54,9 +54,10 @@ class SeqRecordExpanded(object):
 
     def _clean_taxonomy(self, taxonomy):
         self.taxonomy = dict()
-        for key, value in taxonomy.items():
-            # remove special characters so Biopython will not choke on them.
-            self.taxonomy[key] = re.sub("\W", "_", value)
+        if taxonomy:
+            for key, value in taxonomy.items():
+                # remove special characters so Biopython will not choke on them.
+                self.taxonomy[key] = re.sub("\W", "_", value)
 
     def first_codon_position(self):
         """
