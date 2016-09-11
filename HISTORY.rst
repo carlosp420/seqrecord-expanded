@@ -1,6 +1,11 @@
 HISTORY
 =======
 
+0.2.6 (2016-09-11)
+------------------
+* Upgraded requirements to Biopython 1.68
+* Additional check to convert symbols to underscore in taxonomy names.
+
 0.2.5 (2016-06-25)
 ------------------
 * Upgraded requirements to Biopython 1.67
