@@ -11,8 +11,17 @@ class TestCodonPositions(unittest.TestCase):
     def setUp(self):
         self.table = 1  # translation table
         self.voucher_code = 'CP100-09'
-        self.taxonomy = {'genus': 'Aus', 'species': 'bus'}
+        self.taxonomy = {'genus': 'A us-', 'species': 'bus(?)'}
         self.seq = 'GAATGGAAGACAAAGTCTCGTCCA'
+
+    def test_fixing_taxon_name(self):
+        seq_record = SeqRecordExpanded(
+            self.seq,
+            taxonomy=self.taxonomy,
+            gene_code='wingless',
+        )
+        self.assertEqual("A_us_", seq_record.taxonomy['genus'])
+        self.assertEqual("bus___", seq_record.taxonomy['species'])
 
     def test_missing_reading_frame(self):
         seq_record = SeqRecordExpanded(self.seq, gene_code='wingless')

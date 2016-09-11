@@ -1,3 +1,4 @@
+import re
 import warnings
 
 from Bio.Alphabet import IUPAC
@@ -44,11 +45,19 @@ class SeqRecordExpanded(object):
         self.warnings = []
         self.seq = Seq(seq, alphabet=IUPAC.ambiguous_dna)
         self.voucher_code = voucher_code
-        self.taxonomy = taxonomy
+        self.taxonomy = ""
         self.gene_code = gene_code
         self.reading_frame = reading_frame
         self.table = table
         self._sequence_was_corrected = None
+        self._clean_taxonomy(taxonomy)
+
+    def _clean_taxonomy(self, taxonomy):
+        self.taxonomy = dict()
+        if taxonomy:
+            for key, value in taxonomy.items():
+                # remove special characters so Biopython will not choke on them.
+                self.taxonomy[key] = re.sub("\W", "_", value)
 
     def first_codon_position(self):
         """

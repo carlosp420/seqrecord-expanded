@@ -30,7 +30,7 @@ setuptools.setup(
     packages=['seqrecord_expanded'],
 
     install_requires=[
-        'biopython==1.67',
+        'biopython==1.68',
         'degenerate-dna==0.0.9',
         'six==1.10.0',
     ],
