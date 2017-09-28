@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+0.2.7 (2017-09-28)
+------------------
+* Fixed bug that returned wrong bases when sequence is of reading frame different than 1.
+
 0.2.6 (2016-09-11)
 ------------------
 * Upgraded requirements to Biopython 1.68
