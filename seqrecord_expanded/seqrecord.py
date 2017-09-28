@@ -68,15 +68,15 @@ class SeqRecordExpanded(object):
 
         seq = str(self.seq)
         if self.reading_frame == 1:
-            first_position = seq[::3]
+            pass
         elif self.reading_frame == 2:
-            first_position = seq[1::3]
+            seq = seq[2:]
         elif self.reading_frame == 3:
-            first_position = seq[2::3]
+            seq = seq[1:]
         else:  # None
             raise MissingParameterError('reading_frame attribute for gene {0} '
                                         'should be either 1, 2 or 3.'.format(self.gene_code))
-        return first_position
+        return seq[::3]
 
     def _check_reading_frame(self):
         """Raises errors if reading frame is not integer and is not 1, 2, 3 or None.
@@ -94,15 +94,15 @@ class SeqRecordExpanded(object):
 
         seq = str(self.seq)
         if self.reading_frame == 1:
-            second_position = seq[1::3]
+            pass
         elif self.reading_frame == 2:
-            second_position = seq[2::3]
+            seq = seq[2:]
         elif self.reading_frame == 3:
-            second_position = seq[::3]
+            seq = seq[1:]
         else:  # None
             raise MissingParameterError('reading_frame attribute for gene {0} '
                                         'should be either 1, 2 or 3.'.format(self.gene_code))
-        return second_position
+        return seq[1::3]
 
     def third_codon_position(self):
         """
@@ -113,15 +113,15 @@ class SeqRecordExpanded(object):
 
         seq = str(self.seq)
         if self.reading_frame == 1:
-            third_position = seq[2::3]
+            pass
         elif self.reading_frame == 2:
-            third_position = seq[::3]
+            seq = seq[2:]
         elif self.reading_frame == 3:
-            third_position = seq[1::3]
+            seq = seq[1:]
         else:  # None
             raise MissingParameterError('reading_frame attribute for gene {0} '
                                         'should be either 1, 2 or 3.'.format(self.gene_code))
-        return third_position
+        return seq[2::3]
 
     def first_and_second_codon_positions(self):
         """

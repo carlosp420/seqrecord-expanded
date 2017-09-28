@@ -48,45 +48,58 @@ class TestCodonPositions(unittest.TestCase):
         self.assertRaises(ValueError, seq_record.third_codon_position)
 
     def test_getting_codon_positions_reading_frame_1(self):
-        seq = 'GAATGGAAGACAAAGTCTCGTCCA'
+        seq = '123123123123'
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
-        expected = 'GTAAATCC'
+        expected = '1111'
         self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
-        expected = 'AGACACGC'
+        expected = '2222'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
 
-        expected = 'AGGAGTTA'
+        expected = '3333'
         self.assertEqual(expected, seq_record.third_codon_position(), 'Third codon position')
 
     def test_getting_codon_positions_reading_frame_2(self):
-        seq = 'ACACGTCGACTCCGGCAAGTCCACTACCACAGGACATTTGATTTACAAATGTGGTGGTATCGACAAGCGT'
+        seq = '23123123123'
         seq_record = SeqRecordExpanded(seq, reading_frame=2)
-        expected = 'CGGTGATAAAGCTATATGGAGAC'
+        expected = '111'
         self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
-        expected = 'ATACGACCCCGATTAAGGGTAAG'
+        expected = '222'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
 
-        expected = 'ACCCCCGCTCAATGTCATTTCCGT'
+        expected = '333'
         self.assertEqual(expected, seq_record.third_codon_position(), 'Third codon position')
 
     def test_getting_codon_positions_reading_frame_3(self):
-        seq = 'GTCGTGGGGGCCCACGTGGACGTGG'
+        seq = '3123123123123'
         seq_record = SeqRecordExpanded(seq, reading_frame=3)
-        expected = 'CGGCCGCG'
+        expected = '1111'
         self.assertEqual(expected, seq_record.first_codon_position(), 'Fist codon position')
 
-        expected = 'GGGGCGGGG'
+        expected = '2222'
         self.assertEqual(expected, seq_record.second_codon_position(), 'Second codon position')
 
-        expected = 'TTGCATAT'
+        expected = '3333'
         self.assertEqual(expected, seq_record.third_codon_position(), 'Third codon position')
 
+
     def test_getting_first_and_second_codon_positions_reading_frame_1(self):
-        seq = 'GAATGGAAGACAAAGTCTCGTCCA'
+        seq = '123123123123'
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
-        expected = 'GATGAAACAATCCGCC'
+        expected = '12121212'
+        self.assertEqual(expected, seq_record.first_and_second_codon_positions())
+
+    def test_getting_first_and_second_codon_positions_reading_frame_2(self):
+        seq = '23123123123123'
+        seq_record = SeqRecordExpanded(seq, reading_frame=2)
+        expected = '12121212'
+        self.assertEqual(expected, seq_record.first_and_second_codon_positions())
+
+    def test_getting_first_and_second_codon_positions_reading_frame_3(self):
+        seq = '3123123123123'
+        seq_record = SeqRecordExpanded(seq, reading_frame=3)
+        expected = '12121212'
         self.assertEqual(expected, seq_record.first_and_second_codon_positions())
 
 
