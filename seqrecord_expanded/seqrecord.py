@@ -21,6 +21,9 @@ class SeqRecordExpanded(object):
         seq (str):            DNA sequence
         voucher_code (str):   code of voucher that the sequence belongs to
         taxonomy (dict):      ``{'genus': 'Aus', 'species': 'bus'}``
+        lineage (str):        ``Eukaryota; Metazoa; Ecdysozoa; Arthropoda; Hexapoda; Insecta;
+                              Pterygota; Neoptera; Holometabola; Lepidoptera; Glossata; Ditrysia;
+                              Papilionoidea; Nymphalidae; Satyrinae; Satyrini; Euptychiina;``
         gene_code (str):      gene code
         reading_frame (int):  1, 2 or 3.
         table (int):          NCBI code for translation table
@@ -40,8 +43,8 @@ class SeqRecordExpanded(object):
                                 ``reading_frame`` is not specified.
 
     """
-    def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
-                 reading_frame=None, table=None):
+    def __init__(self, seq=None, voucher_code=None, taxonomy=None, lineage=None,
+                 gene_code=None, reading_frame=None, table=None):
         self.warnings = []
         self.seq = Seq(
             seq.replace("-", "?"),
@@ -49,6 +52,7 @@ class SeqRecordExpanded(object):
         )
         self.voucher_code = voucher_code
         self.taxonomy = ""
+        self.lineage = lineage
         self.gene_code = gene_code
         self.reading_frame = reading_frame
         self.table = table

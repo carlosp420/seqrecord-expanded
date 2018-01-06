@@ -51,3 +51,10 @@ class TestDegenerate(unittest.TestCase):
         seq_record = SeqRecordExpanded(self.seq, reading_frame=3)
         expected = 'TGAATGGARGAYAARGCNNNNA'
         self.assertEqual(expected, seq_record.degenerate(method='SZ'), 'Using reading_frame=3')
+
+    def test_lineage(self):
+        lineage = "Eukaryota; Metazoa; Ecdysozoa; Arthropoda; Hexapoda; Insecta; " \
+                  "Pterygota; Neoptera; Holometabola; Lepidoptera; Glossata; Ditrysia; " \
+                  "Papilionoidea; Nymphalidae; Satyrinae; Satyrini; Euptychiina;"
+        seq_record = SeqRecordExpanded(self.seq, reading_frame=1, lineage=lineage)
+        self.assertEqual(lineage, seq_record.lineage)
