@@ -50,16 +50,39 @@ class TestTranslate(unittest.TestCase):
     def test_gapped_translation(self):
         seq = 'TCT---GAATGGAAGACAAAGCGTCCA'
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
-        expected = 'S-EWKTKRP'
+        expected = 'SXEWKTKRP'
         self.assertEqual(expected, seq_record.translate(table=1))
 
     def test_gapped_translation_with_mixed_codons(self):
         seq = 'TCTN--GAATGGAAGACAAAGCGTCCA'
         seq_record = SeqRecordExpanded(seq, reading_frame=1)
-        self.assertRaises(TranslationErrorMixedGappedSeq, seq_record.translate,
-                          table=1)
+        result = seq_record.translate(table=1)
+        self.assertEqual("SXEWKTKRP", result)
 
-        try:
-            seq_record.translate(table=1)
-        except TranslationErrorMixedGappedSeq as e:
-            self.assertTrue("Gene" in e.__str__())
+    def test_translation_with_missing_bp_as_question_mark(self):
+        seq = "ATACGGTA?"
+        seq_record = SeqRecordExpanded(seq, table=1, reading_frame=1,
+                                       voucher_code="CP100-10", gene_code="wingless")
+        result = seq_record.translate()
+        self.assertEqual("IRX", result)
+
+    def test_translation_with_missing_bp_as_dash(self):
+        seq = 'ATACGGTA-'
+        seq_record = SeqRecordExpanded(seq, table=1, reading_frame=1,
+                                       voucher_code="CP100-10", gene_code="wingless")
+        result = seq_record.translate()
+        self.assertEqual("IRX", result)
+
+    def test_translation_with_missing_bp_as_N(self):
+        seq = 'ATACGGTAN'
+        seq_record = SeqRecordExpanded(seq, table=1, reading_frame=1,
+                                       voucher_code="CP100-10", gene_code="wingless")
+        result = seq_record.translate()
+        self.assertEqual("IRX", result)
+
+    def test_translation_with_missing_bp_as_n(self):
+        seq = 'ATACGGTAn'
+        seq_record = SeqRecordExpanded(seq, table=1, reading_frame=1,
+                                       voucher_code="CP100-10", gene_code="wingless")
+        result = seq_record.translate()
+        self.assertEqual("IRX", result)

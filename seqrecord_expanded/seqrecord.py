@@ -43,7 +43,10 @@ class SeqRecordExpanded(object):
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, gene_code=None,
                  reading_frame=None, table=None):
         self.warnings = []
-        self.seq = Seq(seq, alphabet=IUPAC.ambiguous_dna)
+        self.seq = Seq(
+            seq.replace("-", "?"),
+            alphabet=IUPAC.ambiguous_dna,
+        )
         self.voucher_code = voucher_code
         self.taxonomy = ""
         self.gene_code = gene_code
@@ -185,6 +188,9 @@ class SeqRecordExpanded(object):
             (str): Aminoacid sequence.
 
         """
+        if not table:
+            table = self.table
+
         self._check_reading_frame()
         self._check_translation_table(table)
         self._correct_seq_based_on_reading_frame()
