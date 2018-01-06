@@ -6,6 +6,6 @@ degenerate seqs, codon positions based on reading frames, etc.
 from .seqrecord import SeqRecordExpanded
 
 
-__version__ = '0.2.7'
+__version__ = '0.2.8'
 __author__ = 'Carlos Peña <mycalesis@gmail.com>'
 __all__ = []
