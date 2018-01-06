@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+0.2.8 (2018-01-06)
+------------------
+* Avoid raising exception when translating sequence that contains dashes.
+
 0.2.7 (2017-09-28)
 ------------------
 * Fixed bug that returned wrong bases when sequence is of reading frame different than 1.
