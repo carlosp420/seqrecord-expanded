@@ -27,15 +27,18 @@ class SeqRecordExpanded(object):
         gene_code (str):      gene code
         reading_frame (int):  1, 2 or 3.
         table (int):          NCBI code for translation table
+        accession_number (str)
 
     Attributes:
         seq:               DNA sequence as string
         voucher_code:      Code of voucher tha the sequence belongs to.
         taxonomy:          Dictionary ``{'genus': 'Aus', 'species': 'bus'}``.
+        lineage:           string
         gene_code:         Gene code.
         reading_frame:     1, 2 or 3.
         table:             NCBI code for translation table.
         warnings:          List.
+        accession_number:  NCBI accession number as string
 
     Raises:
         MissingParameterError:  if user wants either first, second, third or
@@ -44,7 +47,7 @@ class SeqRecordExpanded(object):
 
     """
     def __init__(self, seq=None, voucher_code=None, taxonomy=None, lineage=None,
-                 gene_code=None, reading_frame=None, table=None):
+                 gene_code=None, reading_frame=None, table=None, accession_number=None):
         self.warnings = []
         self.seq = Seq(
             seq.replace("-", "?"),
@@ -56,6 +59,7 @@ class SeqRecordExpanded(object):
         self.gene_code = gene_code
         self.reading_frame = reading_frame
         self.table = table
+        self.accession_number = accession_number
         self._sequence_was_corrected = None
         self._clean_taxonomy(taxonomy)
 
