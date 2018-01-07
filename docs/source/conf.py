@@ -57,7 +57,7 @@ author = 'Carlos Peña'
 # built documents.
 #
 # The short X.Y version.
-version = '0.2.9'
+version = '0.2.10'
 # The full version, including alpha/beta/rc tags.
 release = version
 
