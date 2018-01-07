@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+0.2.9 (2018-01-06)
+------------------
+* Support lineage.
+
 0.2.8 (2018-01-06)
 ------------------
 * Avoid raising exception when translating sequence that contains dashes.
