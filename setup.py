@@ -17,7 +17,7 @@ def read(*names, **kwargs):
 
 setuptools.setup(
     name="seqrecord_expanded",
-    version="0.2.10",
+    version="0.2.11",
     license="BSD",
     url="https://github.com/carlosp420/seqrecord-expanded",
 
@@ -30,7 +30,7 @@ setuptools.setup(
     packages=['seqrecord_expanded'],
 
     install_requires=[
-        'biopython==1.68',
+        'biopython==1.78',
         'degenerate-dna==0.0.9',
         'six==1.10.0',
     ],
